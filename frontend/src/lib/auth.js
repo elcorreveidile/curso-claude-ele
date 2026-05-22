@@ -8,6 +8,17 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check for token in URL fragment (from magic link redirect)
+    const hash = window.location.hash;
+    if (hash && hash.includes('token=')) {
+      const token = hash.split('token=')[1];
+      if (token) {
+        localStorage.setItem('jwt', token);
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+
     const token = localStorage.getItem('jwt');
     if (token) {
       fetchUser();
