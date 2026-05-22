@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import RedirectResponse
 
 from core import (
+    BACKEND_URL,
     FRONTEND_ORIGIN,
     create_magic_token,
     create_session_jwt,
@@ -29,7 +30,7 @@ async def login(req: LoginRequest) -> dict:
 
     # Create magic token
     token = create_magic_token(req.email)
-    magic_link = f"{FRONTEND_ORIGIN}/auth/verify?token={token}"
+    magic_link = f"{BACKEND_URL}/auth/verify?token={token}"
 
     # Send email
     html = wrap_email(f"""

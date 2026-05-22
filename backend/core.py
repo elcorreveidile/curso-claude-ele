@@ -38,6 +38,7 @@ RESEND_FROM_NAME = os.environ.get("RESEND_FROM_NAME", "La Clase Digital")
 RESEND_REPLY_TO = os.environ.get("RESEND_REPLY_TO", "")
 ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "benitezl@go.ugr.es")
 FRONTEND_ORIGIN = os.environ.get("FRONTEND_ORIGIN", "").rstrip("/")
+BACKEND_URL = os.environ.get("BACKEND_URL", "http://localhost:8000").rstrip("/")
 
 stripe_sdk.api_key = STRIPE_SECRET_KEY
 
