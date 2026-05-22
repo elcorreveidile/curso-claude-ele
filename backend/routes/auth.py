@@ -7,6 +7,7 @@ from core import (
     FRONTEND_ORIGIN,
     create_magic_token,
     create_session_jwt,
+    log,
     send_email,
     supabase,
     verify_magic_token,
@@ -15,6 +16,12 @@ from core import (
 from models import LoginRequest, VerifyTokenRequest, UserOut
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+
+
+@router.get("/test")
+async def test_endpoint():
+    """Test endpoint to verify auth routes are working."""
+    return {"message": "Auth routes working", "BACKEND_URL": BACKEND_URL}
 
 
 @router.post("/login")
@@ -31,6 +38,7 @@ async def login(req: LoginRequest) -> dict:
     # Create magic token
     token = create_magic_token(req.email)
     magic_link = f"{BACKEND_URL}/auth/verify?token={token}"
+    log.info(f"Magic link generated: {magic_link}")
 
     # Send email
     html = wrap_email(f"""
@@ -67,6 +75,7 @@ async def login(req: LoginRequest) -> dict:
 @router.get("/verify")
 async def verify_magic_link(request: Request, token: str) -> RedirectResponse:
     """Verify magic token and redirect to frontend with JWT."""
+    log.info(f"verify endpoint called with token: {token[:20]}...")
     try:
         email = verify_magic_token(token)
 
