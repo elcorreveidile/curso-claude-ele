@@ -1,5 +1,5 @@
 """Authentication routes: magic links + JWT."""
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from fastapi.responses import RedirectResponse
 
 from core import (
@@ -7,6 +7,7 @@ from core import (
     FRONTEND_ORIGIN,
     create_magic_token,
     create_session_jwt,
+    current_user,
     log,
     send_email,
     supabase,
@@ -134,12 +135,8 @@ async def verify_token(req: VerifyTokenRequest) -> dict:
 
 
 @router.get("/me")
-async def get_current_user(current_user: dict = None) -> dict:
+async def get_current_user(user: dict = Depends(current_user)) -> dict:
     """Get current user from JWT (protected route)."""
-    from core import current_user as get_user
-    from fastapi import Depends
-
-    user = await get_user()
     return UserOut(
         id=user["id"],
         email=user["email"],
