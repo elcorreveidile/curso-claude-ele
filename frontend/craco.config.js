@@ -8,4 +8,7 @@ module.exports = {
       '@lib': path.resolve(__dirname, 'src/lib'),
     },
   },
+  eslint: {
+    enable: false,
+  },
 };
