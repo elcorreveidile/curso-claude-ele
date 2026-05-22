@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import PageHero from '../../components/PageHero';
 import { useScrollReveal } from '../../lib/hooks';
 
@@ -49,134 +47,130 @@ export default function Precios() {
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="inner-page">
-        <PageHero
-          tag="Inscripción"
-          title="Precio e inscripción"
-          desc="Formación docente intensiva sobre Claude. 20 horas, 3 videotutorías y certificado de aprovechamiento."
-        />
-        <div className="inner-content">
-          <div style={{ maxWidth: '600px', margin: '0 auto 4rem' }} className="reveal">
-            <div style={{
-              background: 'var(--surface)',
-              borderRadius: 'var(--r-xl)',
-              padding: '2.5rem',
-              boxShadow: 'var(--shadow-md)',
-              border: '2px solid var(--canvas-alt)',
-              textAlign: 'center',
+    <div className="inner-page">
+      <PageHero
+        tag="Inscripción"
+        title="Precio e inscripción"
+        desc="Formación docente intensiva sobre Claude. 20 horas, 3 videotutorías y certificado de aprovechamiento."
+      />
+      <div className="inner-content">
+        <div style={{ maxWidth: '600px', margin: '0 auto 4rem' }} className="reveal">
+          <div style={{
+            background: 'var(--surface)',
+            borderRadius: 'var(--r-xl)',
+            padding: '2.5rem',
+            boxShadow: 'var(--shadow-md)',
+            border: '2px solid var(--canvas-alt)',
+            textAlign: 'center',
+          }}>
+            <p style={{
+              fontSize: '.75rem',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '.1em',
+              color: 'var(--ink-muted)',
+              marginBottom: '.75rem',
             }}>
-              <p style={{
-                fontSize: '.75rem',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '.1em',
-                color: 'var(--ink-muted)',
-                marginBottom: '.75rem',
-              }}>
-                {PRICING.label}
-              </p>
-              <div style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '3.5rem',
-                fontWeight: 800,
-                color: 'var(--blue)',
-                lineHeight: 1,
-                marginBottom: '.25rem',
-              }}>
-                {PRICING.price}
-                <span style={{ fontSize: '1.5rem', fontWeight: 400, color: 'var(--ink-muted)' }}> €</span>
-              </div>
-              <p style={{ fontSize: '.9rem', color: 'var(--ink-muted)', marginBottom: '1.5rem' }}>
-                pago único · acceso de por vida
-              </p>
-
-              <ul style={{ listStyle: 'none', marginBottom: '1.75rem', textAlign: 'left' }}>
-                {PRICING.includes.map((item, i) => (
-                  <li key={i} style={{
-                    display: 'flex',
-                    gap: '.75rem',
-                    alignItems: 'flex-start',
-                    fontSize: '.9rem',
-                    padding: '.5rem 0',
-                    borderBottom: '1px solid var(--canvas-alt)',
-                    color: 'var(--ink-soft)',
-                  }}>
-                    <span style={{ color: 'var(--blue)', fontWeight: 700 }}>✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              <Link
-                to="/inscripcion"
-                className="btn btn--primary"
-                style={{ justifyContent: 'center', width: '100%' }}
-              >
-                Inscribirme ahora →
-              </Link>
-
-              <p style={{ fontSize: '.8rem', color: 'var(--ink-muted)', fontStyle: 'italic', marginTop: '1rem', lineHeight: 1.5 }}>
-                El pago se procesa de forma segura con Stripe. Recibirás acceso inmediato tras completar la inscripción.
-              </p>
+              {PRICING.label}
+            </p>
+            <div style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '3.5rem',
+              fontWeight: 800,
+              color: 'var(--blue)',
+              lineHeight: 1,
+              marginBottom: '.25rem',
+            }}>
+              {PRICING.price}
+              <span style={{ fontSize: '1.5rem', fontWeight: 400, color: 'var(--ink-muted)' }}> €</span>
             </div>
-          </div>
+            <p style={{ fontSize: '.9rem', color: 'var(--ink-muted)', marginBottom: '1.5rem' }}>
+              pago único · acceso de por vida
+            </p>
 
-          <div style={{ marginBottom: '4rem' }} className="reveal reveal--delay-1">
-            <p className="section__tag">No incluido</p>
-            <h2 className="section__title" style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>
-              Lo que necesitas aparte del curso
-            </h2>
-            <div style={{ maxWidth: '720px' }}>
-              {PRICING.not_included.map((item, i) => (
-                <div key={i} style={{
-                  background: 'var(--canvas)',
-                  borderRadius: 'var(--r-md)',
-                  padding: '1rem 1.5rem',
-                  marginBottom: '.75rem',
-                  fontSize: '.95rem',
+            <ul style={{ listStyle: 'none', marginBottom: '1.75rem', textAlign: 'left' }}>
+              {PRICING.includes.map((item, i) => (
+                <li key={i} style={{
+                  display: 'flex',
+                  gap: '.75rem',
+                  alignItems: 'flex-start',
+                  fontSize: '.9rem',
+                  padding: '.5rem 0',
+                  borderBottom: '1px solid var(--canvas-alt)',
                   color: 'var(--ink-soft)',
                 }}>
+                  <span style={{ color: 'var(--blue)', fontWeight: 700 }}>✓</span>
                   {item}
-                </div>
+                </li>
               ))}
-            </div>
-          </div>
+            </ul>
 
-          <div style={{ marginBottom: '4rem' }} className="reveal reveal--delay-2">
-            <p className="section__tag">Preguntas frecuentes</p>
-            <h2 className="section__title" style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>
-              Dudas sobre la inscripción
-            </h2>
-            <div style={{ maxWidth: '720px' }}>
-              {PRICING.faq.map((item, i) => (
-                <div key={i} style={{
-                  background: 'var(--surface)',
-                  borderRadius: 'var(--r-md)',
-                  padding: '1.5rem',
-                  marginBottom: '.75rem',
-                  boxShadow: 'var(--shadow-sm)',
+            <Link
+              to="/inscripcion"
+              className="btn btn--primary"
+              style={{ justifyContent: 'center', width: '100%' }}
+            >
+              Inscribirme ahora →
+            </Link>
+
+            <p style={{ fontSize: '.8rem', color: 'var(--ink-muted)', fontStyle: 'italic', marginTop: '1rem', lineHeight: 1.5 }}>
+              El pago se procesa de forma segura con Stripe. Recibirás acceso inmediato tras completar la inscripción.
+            </p>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '4rem' }} className="reveal reveal--delay-1">
+          <p className="section__tag">No incluido</p>
+          <h2 className="section__title" style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>
+            Lo que necesitas aparte del curso
+          </h2>
+          <div style={{ maxWidth: '720px' }}>
+            {PRICING.not_included.map((item, i) => (
+              <div key={i} style={{
+                background: 'var(--canvas)',
+                borderRadius: 'var(--r-md)',
+                padding: '1rem 1.5rem',
+                marginBottom: '.75rem',
+                fontSize: '.95rem',
+                color: 'var(--ink-soft)',
+              }}>
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '4rem' }} className="reveal reveal--delay-2">
+          <p className="section__tag">Preguntas frecuentes</p>
+          <h2 className="section__title" style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>
+            Dudas sobre la inscripción
+          </h2>
+          <div style={{ maxWidth: '720px' }}>
+            {PRICING.faq.map((item, i) => (
+              <div key={i} style={{
+                background: 'var(--surface)',
+                borderRadius: 'var(--r-md)',
+                padding: '1.5rem',
+                marginBottom: '.75rem',
+                boxShadow: 'var(--shadow-sm)',
+              }}>
+                <p style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '.975rem',
+                  fontWeight: 700,
+                  color: 'var(--ink)',
+                  marginBottom: '.5rem',
                 }}>
-                  <p style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '.975rem',
-                    fontWeight: 700,
-                    color: 'var(--ink)',
-                    marginBottom: '.5rem',
-                  }}>
-                    {item.q}
-                  </p>
-                  <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
-                    {item.a}
-                  </p>
-                </div>
-              ))}
-            </div>
+                  {item.q}
+                </p>
+                <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+                  {item.a}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 }

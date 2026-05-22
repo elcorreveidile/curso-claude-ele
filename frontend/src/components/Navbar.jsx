@@ -23,9 +23,9 @@ export default function Navbar() {
 
   return (
     <nav className={`inner-nav${scrolled ? ' scrolled' : ''}`}>
-      <NavLink to="/" className="inner-nav__logo" onClick={close}>
-        <span className="pipe">[|]</span>Claude<span className="brand-chip">Curso</span>
-      </NavLink>
+      <a href="https://laclasedigital.com" className="inner-nav__logo" onClick={close}>
+        <span className="pipe">[|]</span>La clase digital<span className="brand-chip">Curso Claude</span>
+      </a>
       <div className={`inner-nav__links${open ? ' open' : ''}`}>
         {publicLinks.map((l) => (
           <NavLink

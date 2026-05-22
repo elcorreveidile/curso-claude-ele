@@ -9,7 +9,6 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
       <div className="home-hero">
         <div className="home-body">
           <p className="home-eyebrow reveal">Formación Docente · 20 horas · 149 €</p>
@@ -43,7 +42,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

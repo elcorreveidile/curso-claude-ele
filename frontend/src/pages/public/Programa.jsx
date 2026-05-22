@@ -159,25 +159,21 @@ export default function Programa() {
   useScrollReveal();
 
   return (
-    <>
-      <Navbar />
-      <div className="inner-page">
-        <PageHero
-          tag="Contenidos"
-          title="Programa por módulos"
-          desc="Siete módulos progresivos que van de la primera conversación con Claude hasta la API y Claude Code."
-        />
-        <div className="inner-content">
-          <div className="modules-grid">
-            {MODULES.map((m) => (
-              <div key={m.id} className="reveal">
-                <ModuleCard module={m} />
-              </div>
-            ))}
-          </div>
+    <div className="inner-page">
+      <PageHero
+        tag="Contenidos"
+        title="Programa por módulos"
+        desc="Siete módulos progresivos que van de la primera conversación con Claude hasta la API y Claude Code."
+      />
+      <div className="inner-content">
+        <div className="modules-grid">
+          {MODULES.map((m) => (
+            <div key={m.id} className="reveal">
+              <ModuleCard module={m} />
+            </div>
+          ))}
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 }
