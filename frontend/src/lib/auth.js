@@ -10,19 +10,26 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     // Check for token in URL fragment (from magic link redirect)
     const hash = window.location.hash;
+    console.log('[Auth] Checking for token in URL hash:', hash);
     if (hash && hash.includes('token=')) {
       const token = hash.split('token=')[1];
+      console.log('[Auth] Token found in URL, saving to localStorage');
       if (token) {
         localStorage.setItem('jwt', token);
+        console.log('[Auth] Token saved, length:', token.length);
         // Clean URL
         window.history.replaceState({}, document.title, window.location.pathname);
+        console.log('[Auth] URL cleaned');
       }
     }
 
     const token = localStorage.getItem('jwt');
+    console.log('[Auth] Token from localStorage:', !!token);
     if (token) {
+      console.log('[Auth] Fetching user data...');
       fetchUser();
     } else {
+      console.log('[Auth] No token found, setting loading to false');
       setLoading(false);
     }
   }, []);
