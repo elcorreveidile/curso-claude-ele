@@ -26,10 +26,10 @@ import stripe as stripe_sdk
 ROOT = Path(__file__).parent
 load_dotenv(ROOT / ".env")
 
-SUPABASE_URL = os.environ["SUPABASE_URL"]
-SUPABASE_SERVICE_KEY = os.environ["SUPABASE_SERVICE_KEY"]
-JWT_SECRET = os.environ["JWT_SECRET"]
-MAGIC_LINK_SECRET = os.environ["MAGIC_LINK_SECRET"]
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
+SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
+JWT_SECRET = os.environ.get("JWT_SECRET", "")
+MAGIC_LINK_SECRET = os.environ.get("MAGIC_LINK_SECRET", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_emergent")
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 RESEND_DISABLE = os.environ.get("RESEND_DISABLE", "0") == "1"
@@ -46,7 +46,16 @@ logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("claude-curso")
 
 # ─────────────────────────── DB (Supabase) ─────────────────────
-supabase = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+_supabase_init_error: Optional[str] = None
+try:
+    supabase = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+except Exception as _exc:
+    supabase = None  # type: ignore[assignment]
+    _supabase_init_error = str(_exc)
+    logging.basicConfig(level=logging.ERROR)
+    logging.error("STARTUP: Supabase init failed — %s", _exc)
+    logging.error("  SUPABASE_URL set: %s (len=%d)", bool(SUPABASE_URL), len(SUPABASE_URL))
+    logging.error("  SUPABASE_SERVICE_KEY set: %s (len=%d)", bool(SUPABASE_SERVICE_KEY), len(SUPABASE_SERVICE_KEY))
 
 
 # ─────────────────────────── Helpers ───────────────────────────

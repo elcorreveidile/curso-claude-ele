@@ -11,7 +11,7 @@ from fastapi import FastAPI, HTTPException, Request
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response as StarletteResponse
 
-from core import FRONTEND_ORIGIN, log, supabase
+from core import FRONTEND_ORIGIN, _supabase_init_error, log, supabase
 from routes import admin, auth, certificates, modules, payments, tasks
 
 # ─────────────────────────── Lifespan ────────────────────────────
@@ -102,6 +102,8 @@ async def health():
 async def debug(request: Request):
     """Diagnostic endpoint — shows env config and request headers."""
     import os
+    supabase_url = os.environ.get("SUPABASE_URL", "")
+    supabase_key = os.environ.get("SUPABASE_SERVICE_KEY", "")
     return {
         "origin_header": request.headers.get("origin", "(none)"),
         "host": request.headers.get("host", "(none)"),
@@ -109,7 +111,15 @@ async def debug(request: Request):
         "frontend_origin_env": os.environ.get("FRONTEND_ORIGIN", "(not set)"),
         "resend_api_key_set": bool(os.environ.get("RESEND_API_KEY")),
         "stripe_secret_key_prefix": os.environ.get("STRIPE_SECRET_KEY", "")[:7] or "(not set)",
-        "supabase_url_set": bool(os.environ.get("SUPABASE_URL")),
+        "supabase_url_set": bool(supabase_url),
+        "supabase_url_preview": supabase_url[:30] + "..." if len(supabase_url) > 30 else supabase_url,
+        "supabase_key_set": bool(supabase_key),
+        "supabase_key_len": len(supabase_key),
+        "supabase_key_prefix": supabase_key[:15] + "..." if len(supabase_key) > 15 else "(missing)",
+        "supabase_init_error": _supabase_init_error,
+        "jwt_secret_set": bool(os.environ.get("JWT_SECRET")),
+        "magic_link_secret_set": bool(os.environ.get("MAGIC_LINK_SECRET")),
+        "port_env": os.environ.get("PORT", "(not set)"),
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
