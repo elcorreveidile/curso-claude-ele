@@ -5,7 +5,7 @@ export default function ModuleCard({ module }) {
 
   return (
     <div className="module-card">
-      <div className={`module-card__header module-card__header--${num.replace(/[IVX]/, '').toLowerCase() || num}`}>
+      <div className={`module-card__header module-card__header--${num}`}>
         <span className="module-card__roman">{num}</span>
         <h3 className="module-card__htitle">{title}</h3>
         {optional && <span className="module-card__badge">Optativo</span>}

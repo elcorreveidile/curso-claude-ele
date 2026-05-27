@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import api from '../../lib/api';
 
 export default function Dashboard() {
@@ -17,7 +15,7 @@ export default function Dashboard() {
     try {
       const [modulesRes, progressRes] = await Promise.all([
         api.get('/modules'),
-        api.get('/progress'),
+        api.get('/modules/progress'),
       ]);
       setModules(modulesRes.data);
       setProgress(progressRes.data);
@@ -35,9 +33,7 @@ export default function Dashboard() {
   const progressPercent = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
 
   return (
-    <>
-      <Navbar />
-      <div className="inner-page">
+    <div className="inner-page">
         <div className="inner-content">
           <div style={{ marginBottom: '3rem' }}>
             <h1 className="section__title" style={{ fontSize: '2rem', marginBottom: '1rem' }}>
@@ -183,7 +179,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 }

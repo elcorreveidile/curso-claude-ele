@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import api from '../../lib/api';
 
 export default function AdminDashboard() {
@@ -33,9 +31,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <>
-      <Navbar />
-      <div className="inner-page">
+    <div className="inner-page">
         <div className="inner-content">
           <h1 className="section__title" style={{ fontSize: '2rem', marginBottom: '2rem' }}>
             Panel de Administración
@@ -192,7 +188,6 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 }

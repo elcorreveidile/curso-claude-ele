@@ -16,7 +16,7 @@ from typing import Any, Optional
 
 import httpx
 from dotenv import load_dotenv
-from fastapi import Depends, Header, HTTPException
+from fastapi import Depends, Header, HTTPException, Request
 from jose import JWTError, jwt
 from supabase import create_client
 
@@ -216,11 +216,16 @@ def verify_magic_token(token: str) -> str:
 
 
 async def current_user_optional(
+    request: Request,
     authorization: Optional[str] = Header(None),
 ) -> Optional[dict]:
-    if not authorization or not authorization.lower().startswith("bearer "):
+    # Prefer httpOnly cookie; fall back to Authorization header
+    token = request.cookies.get("session_token")
+    if not token and authorization and authorization.lower().startswith("bearer "):
+        token = authorization.split(" ", 1)[1]
+
+    if not token:
         return None
-    token = authorization.split(" ", 1)[1]
     try:
         data = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
     except JWTError:
@@ -249,9 +254,10 @@ async def current_user_optional(
 
 
 async def current_user(
+    request: Request,
     authorization: Optional[str] = Header(None),
 ) -> dict:
-    user = await current_user_optional(authorization)
+    user = await current_user_optional(request, authorization)
     if not user:
         raise HTTPException(401, "No autenticado")
     return user

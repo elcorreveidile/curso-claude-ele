@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import api from '../../lib/api';
 
 export default function AdminParticipantes() {
@@ -27,9 +25,7 @@ export default function AdminParticipantes() {
   }
 
   return (
-    <>
-      <Navbar />
-      <div className="inner-page">
+    <div className="inner-page">
         <div className="inner-content">
           <h1 className="section__title" style={{ fontSize: '2rem', marginBottom: '2rem' }}>
             Gestión de Participantes
@@ -101,7 +97,6 @@ export default function AdminParticipantes() {
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 }

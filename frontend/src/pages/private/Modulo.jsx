@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import api from '../../lib/api';
 
 export default function Modulo() {
@@ -33,9 +31,7 @@ export default function Modulo() {
   }
 
   return (
-    <>
-      <Navbar />
-      <div className="inner-page">
+    <div className="inner-page">
         <div className="page-hero">
           <div className="page-hero__inner">
             <p className="page-hero__tag">Módulo {module.num}</p>
@@ -184,7 +180,6 @@ export default function Modulo() {
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 }
