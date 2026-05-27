@@ -13,5 +13,8 @@ COPY backend/ .
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Railway inyecta $PORT — no usar EXPOSE fijo para evitar conflicto con el ruteo
+# EXPOSE 8080 tells Railway to route external traffic to port 8080,
+# matching the $PORT value Railway injects (consistently 8080 for this service).
+EXPOSE 8080
+
 CMD ["/start.sh"]
