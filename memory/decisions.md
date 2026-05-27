@@ -46,7 +46,10 @@
 
 #### Gestión de Estado
 - **Context API** para autenticación (AuthProvider)
-- **localStorage** para persistencia de JWT
+- **httpOnly cookie** (`session_token`) para persistencia de JWT — sin localStorage/sessionStorage
+  - `SameSite=lax; Secure=false` en desarrollo (localhost, mismo host)
+  - `SameSite=none; Secure=true` en producción (dominios cruzados)
+  - Frontend usa `withCredentials: true` en axios; no necesita leer el token
 - **React Query** podría añadirse en futuro para cache
 
 ### Backend - FastAPI + Supabase

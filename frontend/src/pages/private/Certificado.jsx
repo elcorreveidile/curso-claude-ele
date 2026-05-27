@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import api from '../../lib/api';
 
 export default function Certificado() {
@@ -45,9 +43,7 @@ export default function Certificado() {
 
   if (!certificate) {
     return (
-      <>
-        <Navbar />
-        <div className="inner-page">
+      <div className="inner-page">
           <div className="inner-content">
             <div style={{
               background: 'var(--surface)',
@@ -91,14 +87,11 @@ export default function Certificado() {
             </div>
           </div>
         </div>
-        <Footer />
-      </>
     );
   }
 
   return (
     <>
-      <Navbar />
       <div className="inner-page">
         <div className="inner-content">
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -215,7 +208,6 @@ export default function Certificado() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

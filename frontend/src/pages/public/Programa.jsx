@@ -1,6 +1,4 @@
 import React from 'react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import PageHero from '../../components/PageHero';
 import ModuleCard from '../../components/ModuleCard';
 import { useScrollReveal } from '../../lib/hooks';

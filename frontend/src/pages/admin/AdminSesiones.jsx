@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import api from '../../lib/api';
 
 export default function AdminSesiones() {
@@ -27,9 +25,7 @@ export default function AdminSesiones() {
   }
 
   return (
-    <>
-      <Navbar />
-      <div className="inner-page">
+    <div className="inner-page">
         <div className="inner-content">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
             <h1 className="section__title" style={{ fontSize: '2rem', marginBottom: 0 }}>
@@ -177,7 +173,5 @@ export default function AdminSesiones() {
           </div>
         </div>
       </div>
-      <Footer />
-    </>
   );
 }

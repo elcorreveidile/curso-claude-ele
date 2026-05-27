@@ -11,18 +11,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from core import FRONTEND_ORIGIN, log, supabase
-from models import (
-    AdminStatsOut,
-    CertificateOut,
-    FeedbackIn,
-    ModuleOut,
-    ParticipantOut,
-    SessionOut,
-    SubmissionIn,
-    SubmissionOut,
-    TaskOut,
-)
-from routes import admin, auth, modules, payments, tasks
+from routes import admin, auth, certificates, modules, payments, tasks
 
 # ─────────────────────────── Lifespan ────────────────────────────
 scheduler = AsyncIOScheduler()
@@ -74,6 +63,7 @@ app.include_router(payments.router)
 app.include_router(modules.router)
 app.include_router(tasks.router)
 app.include_router(admin.router)
+app.include_router(certificates.router)
 
 
 # ─────────────────────────── Root ───────────────────────────────
