@@ -4,6 +4,10 @@
   "outputDirectory": "frontend/build",
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://curso-claude-ele-production.up.railway.app/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
