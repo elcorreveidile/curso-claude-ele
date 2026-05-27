@@ -45,6 +45,7 @@ allowed_origins = [
     FRONTEND_ORIGIN,
     "http://localhost:3000",
     "https://curso-claude-ele.vercel.app",
+    "https://claude.laclasedigital.com",
 ]
 # Remove duplicates and empty strings
 allowed_origins = list(set([o for o in allowed_origins if o]))

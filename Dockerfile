@@ -9,8 +9,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar resto del backend
 COPY backend/ .
 
-# Exponer puerto
+# Exponer puerto (Railway inyecta $PORT)
 EXPOSE 8000
 
-# Comando de inicio
-CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000"]
+# Usar $PORT de Railway; si no existe, 8000 como fallback
+CMD uvicorn server:app --host 0.0.0.0 --port ${PORT:-8000}
