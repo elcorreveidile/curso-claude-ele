@@ -98,9 +98,14 @@ body::before {
   font-weight: 400; letter-spacing: -1px;
   margin-right: 4px; opacity: .9;
 }
-.inner-nav__logo span.brand-chip {
+.inner-nav__logo a {
+  color: var(--blue);
+  text-decoration: none;
+}
+.inner-nav__logo .brand-chip {
   background: var(--amber); color: var(--white);
   padding: 1px 7px; border-radius: var(--r-sm); font-size: .75rem;
+  text-decoration: none;
 }
 .inner-nav__links {
   display: flex; align-items: center; gap: 1.5rem;
