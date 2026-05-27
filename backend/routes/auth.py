@@ -59,7 +59,7 @@ async def test_endpoint():
 async def login(req: LoginRequest) -> dict:
     """Send magic link email."""
     token = create_magic_token(req.email)
-    magic_link = f"{BACKEND_URL}/auth/verify?token={token}"
+    magic_link = f"{FRONTEND_ORIGIN}/api/auth/verify?token={token}"
     log.info("Magic link generated for %s", req.email)
 
     html = wrap_email(f"""

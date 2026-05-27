@@ -131,7 +131,7 @@ async def handle_checkout_session_completed(session: dict):
         # Send welcome email to student — link valid for 7 days
         from datetime import timedelta
         magic_token = create_magic_token(email, expires_in=timedelta(days=7))
-        magic_link = f"{BACKEND_URL}/auth/verify?token={magic_token}"
+        magic_link = f"{FRONTEND_ORIGIN}/api/auth/verify?token={magic_token}"
 
         html = wrap_email(f"""
           <div style="text-align:center;margin-bottom:2rem;">
