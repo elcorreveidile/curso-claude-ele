@@ -23,9 +23,12 @@ export default function Navbar() {
 
   return (
     <nav className={`inner-nav${scrolled ? ' scrolled' : ''}`}>
-      <a href="https://laclasedigital.com" className="inner-nav__logo" onClick={close}>
-        <span className="pipe">[|]</span>La clase digital<span className="brand-chip">Curso Claude</span>
-      </a>
+      <div className="inner-nav__logo">
+        <a href="https://laclasedigital.com" onClick={close}>
+          <span className="pipe">[|]</span>La clase digital
+        </a>
+        <NavLink to="/" onClick={close} className="brand-chip">Curso Claude</NavLink>
+      </div>
       <div className={`inner-nav__links${open ? ' open' : ''}`}>
         {publicLinks.map((l) => (
           <NavLink
