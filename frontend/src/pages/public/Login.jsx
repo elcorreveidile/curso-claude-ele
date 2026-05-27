@@ -19,7 +19,10 @@ export default function Login() {
       setSuccess(true);
       setTimeout(() => navigate('/check-email'), 1500);
     } catch (err) {
-      setError(err.response?.data?.detail || 'Error al enviar el magic link. Inténtalo de nuevo.');
+      const detail = err.response?.data?.detail;
+      const networkMsg = err.message ? `Error de red: ${err.message}` : null;
+      setError(detail || networkMsg || 'Error al enviar el magic link. Inténtalo de nuevo.');
+      console.error('[Login] error:', err.response?.status, err.response?.data, err.message);
     } finally {
       setLoading(false);
     }

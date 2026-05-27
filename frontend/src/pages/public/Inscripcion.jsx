@@ -32,7 +32,10 @@ export default function Inscripcion() {
       // Redirigir a Stripe Checkout
       window.location.href = response.data.checkout_url;
     } catch (err) {
-      setError(err.response?.data?.detail || 'Error al iniciar el proceso de pago. Inténtalo de nuevo.');
+      const detail = err.response?.data?.detail;
+      const networkMsg = err.message ? `Error de red: ${err.message}` : null;
+      setError(detail || networkMsg || 'Error al iniciar el proceso de pago. Inténtalo de nuevo.');
+      console.error('[Inscripcion] error:', err.response?.status, err.response?.data, err.message);
       setLoading(false);
     }
   };
