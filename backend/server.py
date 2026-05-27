@@ -7,8 +7,9 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, HTTPException, Request
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response as StarletteResponse
 
 from core import FRONTEND_ORIGIN, log, supabase
 from routes import admin, auth, certificates, modules, payments, tasks
@@ -39,24 +40,38 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS
-# Allow both custom domain and Vercel preview URL
-allowed_origins = [
+# CORS — custom middleware to guarantee headers regardless of Starlette version
+_CORS_ORIGINS = {o for o in [
     FRONTEND_ORIGIN,
     "http://localhost:3000",
     "https://curso-claude-ele.vercel.app",
     "https://claude.laclasedigital.com",
-]
-# Remove duplicates and empty strings
-allowed_origins = list(set([o for o in allowed_origins if o]))
+] if o}
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=allowed_origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+
+class _ManualCORS(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        origin = request.headers.get("origin", "")
+        allowed = origin in _CORS_ORIGINS
+
+        if request.method == "OPTIONS":
+            res = StarletteResponse(status_code=200)
+            if allowed:
+                res.headers["Access-Control-Allow-Origin"] = origin
+                res.headers["Access-Control-Allow-Credentials"] = "true"
+                res.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                res.headers["Access-Control-Allow-Headers"] = "Content-Type,Authorization,Cookie"
+                res.headers["Access-Control-Max-Age"] = "600"
+            return res
+
+        response = await call_next(request)
+        if allowed:
+            response.headers["Access-Control-Allow-Origin"] = origin
+            response.headers["Access-Control-Allow-Credentials"] = "true"
+        return response
+
+
+app.add_middleware(_ManualCORS)
 
 # Include routers
 app.include_router(auth.router)
