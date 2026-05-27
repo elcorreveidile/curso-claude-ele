@@ -13,8 +13,5 @@ COPY backend/ .
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Exponer puerto (Railway inyecta $PORT)
-EXPOSE 8000
-
-# Usar $PORT de Railway; si no existe, 8000 como fallback
+# Railway inyecta $PORT — no usar EXPOSE fijo para evitar conflicto con el ruteo
 CMD ["/start.sh"]
