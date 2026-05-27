@@ -98,6 +98,22 @@ async def health():
     return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
 
 
+@app.get("/debug")
+async def debug(request: Request):
+    """Diagnostic endpoint — shows env config and request headers."""
+    import os
+    return {
+        "origin_header": request.headers.get("origin", "(none)"),
+        "host": request.headers.get("host", "(none)"),
+        "cors_allowed_origins": sorted(_CORS_ORIGINS),
+        "frontend_origin_env": os.environ.get("FRONTEND_ORIGIN", "(not set)"),
+        "resend_api_key_set": bool(os.environ.get("RESEND_API_KEY")),
+        "stripe_secret_key_prefix": os.environ.get("STRIPE_SECRET_KEY", "")[:7] or "(not set)",
+        "supabase_url_set": bool(os.environ.get("SUPABASE_URL")),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+
 # ─────────────────────────── Scheduled Tasks ───────────────────
 @scheduler.scheduled_job("cron", hour="*", minute="0")  # Every hour
 async def check_upcoming_sessions():
