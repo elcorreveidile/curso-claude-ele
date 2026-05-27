@@ -85,7 +85,7 @@ export default function Precios() {
               <span style={{ fontSize: '1.5rem', fontWeight: 400, color: 'var(--ink-muted)' }}> €</span>
             </div>
             <p style={{ fontSize: '.9rem', color: 'var(--ink-muted)', marginBottom: '1.5rem' }}>
-              pago único · acceso de por vida
+              pago único · acceso de por vida · actualizaciones de contenidos mensuales
             </p>
 
             <ul style={{ listStyle: 'none', marginBottom: '1.75rem', textAlign: 'left' }}>
