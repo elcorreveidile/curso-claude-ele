@@ -180,6 +180,5 @@ export default function Modulo() {
           </div>
         </div>
       </div>
-    </div>
   );
 }

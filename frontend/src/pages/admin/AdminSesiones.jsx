@@ -173,6 +173,5 @@ export default function AdminSesiones() {
           </div>
         </div>
       </div>
-    </div>
   );
 }

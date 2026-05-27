@@ -97,6 +97,5 @@ export default function AdminParticipantes() {
           </div>
         </div>
       </div>
-    </div>
   );
 }

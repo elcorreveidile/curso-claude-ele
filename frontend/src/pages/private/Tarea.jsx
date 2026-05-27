@@ -184,6 +184,5 @@ export default function Tarea() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
